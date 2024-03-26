@@ -17,12 +17,6 @@ Interactive
 https://mhcode.dev/#mexico_postal_code
 ```
 
-# Demo
-
-```
-https://mhcode.dev
-```
-
 ## Clone the project
 
 ```
