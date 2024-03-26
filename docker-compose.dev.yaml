@@ -1,0 +1,48 @@
+services:
+
+    postal_code_db:
+        image: postgres:latest
+        restart: always
+        environment:
+            - POSTGRES_DB=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+
+        volumes:
+            - ./pg_data:/var/lib/postgresql/data
+        networks:
+            - mhcode
+
+
+    postal_code_backend:
+        restart: "on-failure"
+        image: mx_postal_codes/backend
+        build:
+            context: ./backend
+        ports:
+            - 8888:8888
+        volumes:
+            - ./backend:/app
+        environment:
+            - SECRET_KEY=django-insecure--jcq!c)sg_v!=d+1ue61h4sf2dc@db^o64kcy^kqp19xz5mj0h
+            - POSTGRES_NAME=postgres
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=postgres
+            - POSTGRES_HOST=postal_code_db
+            - POSTGRES_PORT=5432
+        command: 'python manage.py runserver 0.0.0.0:8888'
+        networks:
+            - mhcode
+
+    
+    postal_code_redis:
+        image: redis:7
+        restart: "on-failure"
+        ports:
+            - 6380:6379
+        networks:
+            - mhcode
+
+networks:
+    mhcode:
+        external: true
