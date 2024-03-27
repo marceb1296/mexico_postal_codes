@@ -4,3 +4,4 @@ xlrd
 requests
 psycopg2
 django-cors-headers
+gunicorn
