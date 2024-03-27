@@ -2,7 +2,7 @@ services:
 
     postal_code_backend:
         restart: "on-failure"
-        image: mhcode/backend
+        image: mx_postal_codes/backend
         build:
             context: ./backend
         expose:
