@@ -132,7 +132,7 @@ class PostalCodeHandler:
     def save_to_model(self, data: list):
 
         PostalCode.objects.bulk_create(
-            [PostalCode(**obj) for obj in data])
+            [PostalCode(**obj) for obj in data], batch_size=999)
 
     @transaction.atomic
     def bulk_update_postal_codes(self, data):
